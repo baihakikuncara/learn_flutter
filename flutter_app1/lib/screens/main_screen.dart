@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/components/grid_tile_widget.dart';
+import 'package:flutter_app1/components/list_tile_widget.dart';
 import 'package:flutter_app1/components/my_data.dart';
 
 enum PageType {
@@ -54,7 +55,7 @@ class MainScreen extends StatelessWidget {
 
 class MainWidget extends StatelessWidget {
   final PageType type;
-  PageView viewMode = PageView.grid;
+  PageView viewMode = PageView.list;
 
   MainWidget(this.type, {super.key});
 
@@ -80,7 +81,9 @@ class MainWidget extends StatelessWidget {
         });
 
       case PageView.list:
-        return Placeholder();
+        return ListView(
+          children: data.map((e) => ListTileWidget.fromJson(e)).toList(),
+        );
     }
   }
 }
