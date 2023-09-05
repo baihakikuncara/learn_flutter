@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app1/components/grid_tile_widget.dart';
 import 'package:flutter_app1/components/list_tile_widget.dart';
 import 'package:flutter_app1/components/my_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum PageType {
   home,
@@ -12,6 +13,8 @@ enum PageView {
   list,
   grid,
 }
+
+final pageViewModeProvider = StateProvider<PageView>((ref) => PageView.list);
 
 final dummyData = [
   for (int i = 0; i < 100; i++)
@@ -24,13 +27,31 @@ final dummyData = [
     })
 ];
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            DropdownButton(
+              items: const [
+                DropdownMenuItem(
+                  value: PageView.grid,
+                  child: Icon(Icons.grid_view),
+                ),
+                DropdownMenuItem(
+                  value: PageView.list,
+                  child: Icon(Icons.list),
+                )
+              ],
+              onChanged: (value) {
+                ref.read(pageViewModeProvider.notifier).state = value!;
+              },
+              value: ref.watch(pageViewModeProvider),
+            )
+          ],
           bottom: const TabBar(
             tabs: [
               Tab(
@@ -53,14 +74,13 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class MainWidget extends StatelessWidget {
+class MainWidget extends ConsumerWidget {
   final PageType type;
-  PageView viewMode = PageView.list;
 
   MainWidget(this.type, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List data = [];
     switch (type) {
       case PageType.home:
@@ -70,6 +90,8 @@ class MainWidget extends StatelessWidget {
         data = dummyData.where((element) => element.favorite).toList();
         break;
     }
+
+    var viewMode = ref.watch(pageViewModeProvider);
     switch (viewMode) {
       case PageView.grid:
         return LayoutBuilder(builder: (context, constraints) {
