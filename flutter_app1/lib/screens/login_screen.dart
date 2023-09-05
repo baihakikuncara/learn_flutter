@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
                   width: 300,
                   child: TextFormField(
                     validator: (value) => (value == null || value.isEmpty)
-                        ? 'please enter password'
+                        ? 'please enter username'
                         : null,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
