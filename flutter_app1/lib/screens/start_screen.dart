@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/components/colored_button.dart';
+import 'package:flutter_app1/screens/login_screen.dart';
 
 final Future<String> placeholderForLoading = Future.delayed(
   const Duration(seconds: 5),
@@ -67,7 +68,7 @@ class StartWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Placeholder(),
+                  builder: (context) => LoginScreen(),
                 ),
               );
             }),
