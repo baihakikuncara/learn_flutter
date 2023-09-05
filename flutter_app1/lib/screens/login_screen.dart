@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/components/colored_button.dart';
+import 'package:flutter_app1/screens/main_screen.dart';
 import 'package:flutter_app1/screens/start_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -57,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Placeholder(),
+                          builder: (context) => MainScreen(),
                         ),
                       );
                     }
