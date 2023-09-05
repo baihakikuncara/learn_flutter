@@ -13,9 +13,14 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var favoriteIcon = Icon(
+      favorite ? Icons.favorite : Icons.favorite_outline,
+      color: Theme.of(context).primaryColor,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
+        actions: [IconButton(onPressed: () {}, icon: favoriteIcon)],
       ),
       body: Container(
         child: SingleChildScrollView(
