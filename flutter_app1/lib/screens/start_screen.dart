@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/components/colored_button.dart';
 
 final Future<String> placeholderForLoading = Future.delayed(
   const Duration(seconds: 5),
@@ -15,7 +16,7 @@ class StartScreen extends StatelessWidget {
           future: placeholderForLoading,
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
-              return const LoginWidget();
+              return const StartWidget();
             } else if (snapshot.hasError) {
               return const Center(
                 child: Text('error'),
@@ -36,16 +37,19 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: Image.asset('assets/logo.png'),
+    return Padding(
+      padding: EdgeInsets.all(width / 2),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Image.asset('assets/logo.png'),
+      ),
     );
   }
 }
 
-class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+class StartWidget extends StatelessWidget {
+  const StartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,38 +63,42 @@ class LoginWidget extends StatelessWidget {
             const SizedBox(
               height: 128,
             ),
-            StartScreenButton('Login', () {}),
+            ColoredButton('Login', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Placeholder(),
+                ),
+              );
+            }),
             const SizedBox(
               height: 24,
             ),
-            StartScreenButton('Register', () {}),
+            ColoredButton(
+              'Register',
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Placeholder(),
+                ),
+              ),
+              secondary: false,
+            ),
             const SizedBox(
               height: 24,
             ),
             const Text('Or'),
-            StartScreenButton('Login with Google', () {}),
+            ColoredButton(
+              'Login with Google',
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Placeholder(),
+                ),
+              ),
+            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class StartScreenButton extends StatelessWidget {
-  static const double buttonWidth = 200;
-
-  final String text;
-  final Function() func;
-
-  const StartScreenButton(this.text, this.func, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: buttonWidth,
-      child: ElevatedButton(
-        onPressed: func,
-        child: Text(text),
       ),
     );
   }

@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData.light(useMaterial3: true).copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: StartScreen(),
+      home: const StartScreen(),
     );
   }
 }
